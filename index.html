@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chem 101 Quiz: Lectures 1–5</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f3f6fb;--card:#fff;--tx:#12233f;--mu:#5b6b85;--bd:#cfd8e6;--navy:#0d2b5e;--gold:#c9a24b;--gb:#e3f6ea;--gc:#1b9a52;--rb:#fde8e8;--rc:#d93a3a;--fl:#f5a524}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0c1426;--card:#15213a;--tx:#e8eefb;--mu:#9fb0cc;--bd:#2c3d5f;--gb:#10361f;--gc:#3ecf7e;--rb:#3d1717;--rc:#ff6b6b}}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+header b{font-size:17px}header button{background:var(--gold);color:#12233f;border:0;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
+.bar{height:6px;background:var(--bd)}.bar i{display:block;height:100%;background:var(--gold);transition:width .3s}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--mu);font-size:14px;margin-bottom:10px}
+.chip{background:var(--navy);color:#fff;border-radius:99px;padding:2px 10px;font-size:13px;margin-right:6px}
+.chip.r{background:var(--rc)}
+h2{font-size:19px;line-height:1.4;margin:6px 0 14px}
+.o{display:flex;gap:10px;width:100%;text-align:left;background:var(--card);color:var(--tx);border:2px solid var(--bd);border-radius:10px;padding:11px 12px;margin:8px 0;font:inherit;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--gold)}.o:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.o b{min-width:22px}.o:disabled{cursor:default;opacity:.65}
+.o.ok{background:var(--gb);border-color:var(--gc);opacity:1}.o.no{background:var(--rb);border-color:var(--rc);opacity:1}
+.ex{border-radius:10px;padding:12px 14px;margin-top:12px}.ex.ok{background:var(--gb);border-left:5px solid var(--gc)}.ex.no{background:var(--rb);border-left:5px solid var(--rc)}
+.row{display:flex;gap:8px;justify-content:space-between;margin-top:14px;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:700;cursor:pointer}
+.fg{background:transparent;color:var(--tx);border:2px solid var(--bd);border-radius:10px;padding:9px 14px;font:inherit;cursor:pointer}
+.fg.on{background:var(--fl);border-color:var(--fl);color:#12233f;font-weight:700}
+.big{font-size:44px;font-weight:800;margin:0}.sm{color:var(--mu);font-size:14px}
+</style></head><body>
+<header><b>Chem 101 · Lectures 1–5</b><button id="fb"></button></header>
+<div class="bar"><i id="pb"></i></div><main id="app"></main>
+<script>
+const D=[
+["L1","A patient in the ED is started on an IV bag of 0.9% NaCl. How is this fluid classified?",["Element","Compound","Homogeneous mixture","Heterogeneous mixture"],2,"NaCl is evenly dissolved in water, so composition is uniform: a solution. It is a mixture, not a compound, because composition can vary (0.9% vs 3% saline)."],
+["L1","A bottle of oral antibiotic says ‘shake well before use’. What is this preparation?",["Homogeneous mixture","Heterogeneous mixture (suspension)","Pure compound","Element"],1,"A suspension is not uniform until mixed; particles settle, so it is heterogeneous. Under-shaking gives an inaccurate dose."],
+["L1","Before electrolyte testing, a blood sample is centrifuged to separate plasma from cells. Centrifugation separates components by:",["Charge","Density","Boiling point","Colour"],1,"Centrifugation separates by density. Filtration separates solid from liquid; chromatography uses movement/affinity."],
+["L1","A nurse crushes a tablet for a patient who cannot swallow. What type of change is this, and what is the concern?",["Chemical change; a new drug forms","Physical change; some tablets are unsafe to crush","Physical change; it never affects drug delivery","Chemical change; the drug is metabolized"],1,"Crushing changes size, not identity (physical). It can still alter release and safety, so some tablets must not be crushed."],
+["L1","H₂O and H₂O₂ contain the same elements, yet one is drinkable and the other a disinfectant. Why?",["Both are mixtures","They have different formulas, so they are different compounds","H₂O₂ is an element","They differ only in state"],1,"A compound has a fixed formula. A different ratio of the same elements gives a different substance with different properties."],
+["L1","Inside cells, glucose reacts with oxygen to give CO₂, water and energy. This is a:",["Physical change","Chemical change","Change of state","Filtration"],1,"New substances form, so identity changes. Antacid + gastric acid and drug metabolism are also chemical changes."],
+["L1","Which of these is an element?",["NaCl tablet","O₂ in a cylinder","Glucose","0.9% saline"],1,"O₂ contains only one type of atom. NaCl and glucose are compounds; saline is a mixture."],
+["L2","Which particle decides whether an atom is carbon, oxygen, sodium or iodine?",["Neutrons","Electrons","Protons","Valence electrons"],2,"Atomic number = number of protons, which identifies the element. Neutrons make isotopes; electrons make ions."],
+["L2","C-12, C-13 and C-14 are all carbon. What do these atoms have in common, and how do they differ?",["Same neutrons, different protons","Same protons, different neutrons","Same electrons, different protons","Same mass number, different protons"],1,"Isotopes are atoms of the same element: same number of protons, different number of neutrons (so different mass)."],
+["L2","How does Na⁺ in blood differ from a neutral sodium atom?",["It has gained a proton","It has lost an electron; the protons are unchanged","It has lost a neutron","It has gained an electron"],1,"Ions form by losing or gaining electrons only; the proton number (the element’s identity) stays the same. Losing an electron gives a cation."],
+["L2","Chlorine has the arrangement 2,8,7. What does it typically do to become stable?",["Lose 7 electrons","Gain 1 electron to form Cl⁻","Lose 1 electron to form Cl⁺","Gain 7 electrons"],1,"With 7 valence electrons, gaining one completes the outer shell and gives the anion Cl⁻."],
+["L2","A patient who vomited heavily is confused. Which ion is the major extracellular cation controlling fluid balance and nerve function?",["K⁺","Na⁺","Ca²⁺","Cl⁻"],1,"Na⁺ is the main extracellular cation. K⁺ is intracellular (cardiac rhythm), Ca²⁺ is bone/clotting, Cl⁻ is an anion."],
+["L2","A patient from an iodine-deficient region has a goiter and suspected thyroid disease. Which radioisotope is used for thyroid imaging and treatment?",["Tl-201","Tc-99m","I-131","C-14"],2,"I-131 is used for thyroid imaging and treatment. Tl-201 is myocardial perfusion imaging; Tc-99m is general diagnostic imaging."],
+["L2","Comparing sodium and chlorine in the same period, which statement is correct?",["Na is smaller than Cl","Cl is smaller than Na, because nuclear attraction increases across a period","Na has the higher ionization energy","Cl has the lower ionization energy"],1,"Across a period atomic size decreases and ionization energy increases, so Cl is smaller and holds electrons more tightly."],
+["L3","What type of bond holds Na⁺ and Cl⁻ together in table salt?",["Covalent (sharing)","Ionic (opposite charges attract)","Hydrogen bond","Dispersion force"],1,"A metal transfers an electron to a nonmetal; opposite charges attract strongly, giving high-melting crystalline solids."],
+["L3","CO₂ has polar C=O bonds, yet CO₂ is nonpolar. Why?",["It has lone pairs on carbon","Its linear shape cancels the bond dipoles","It is ionic","C=O bonds are nonpolar"],1,"Two electron groups repel to opposite sides (linear), so dipoles cancel. Water is bent, so its dipoles do not cancel and it is polar."],
+["L3","NH₃ has 3 N–H bonds and 1 lone pair on nitrogen. What is its molecular geometry?",["Linear","Bent","Trigonal pyramidal","Tetrahedral"],2,"4 electron groups with 1 lone pair gives trigonal pyramidal. Bent = 2 lone pairs (H₂O); tetrahedral = 4 bonds (CH₄)."],
+["L3","Which force keeps water liquid at body temperature and helps hold DNA base pairs together?",["Ion–ion attraction","Hydrogen bonding","Dispersion forces","Covalent bonding between molecules"],1,"H bonded to N, O or F is attracted to N, O or F on another molecule. This is key in water, proteins and DNA."],
+["L3","A drug molecule is nonpolar. What is it most likely to show?",["High water solubility, poor membrane crossing","Higher lipid solubility and easier membrane crossing","Conducts electricity in solution","Strong ion–ion attraction"],1,"Nonpolar substances dissolve in lipids and cross membranes more easily; polar or ionized drugs favour water."],
+["L3","Which molecule can form hydrogen bonds with other molecules of itself?",["CH₄","CO₂","NH₃","O₂"],2,"NH₃ has N–H bonds, so hydrogen bonding occurs. CH₄, CO₂ and O₂ have only weak dispersion forces."],
+["L4","Acetic acid (CH₃COOH) is called a weak acid. What does ‘weak’ mean?",["It is partially ionized in water; it can still be concentrated","It is always dilute","It ionizes completely","It has a pH above 7"],0,"Weak = partial ionization (equilibrium remains). Strength is not the same as concentration; strong acids like HCl ionize almost completely."],
+["L4","In C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O, what do the coefficients tell us?",["The relative amounts (mole ratios) of each substance","The number of atoms inside each molecule","The charge of each ion","The state of each substance"],0,"Coefficients give relative amounts (1 glucose : 6 O₂). Subscripts show atoms inside a formula and must never be changed when balancing."],
+["L4","In NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, which species accepts H⁺ and so acts as a Brønsted–Lowry base?",["H₂O","NH₃","NH₄⁺","OH⁻"],1,"A Brønsted–Lowry acid donates H⁺ and a base accepts it. NH₃ gains H⁺ to become NH₄⁺."],
+["L4","A stock solution is diluted by adding water. What happens?",["Concentration falls; moles of solute stay the same","Moles of solute increase","Concentration rises","The solute changes identity"],0,"Dilution adds solvent, lowering concentration, but the amount (moles) of solute is unchanged (M₁V₁ = M₂V₂)."],
+["L4","A patient takes CaCO₃ for reflux. Which gas forms when it reacts with stomach HCl?",["O₂","H₂","CO₂","Cl₂"],2,"CaCO₃ + 2HCl → CaCl₂ + CO₂ + H₂O. The base neutralizes excess acid."],
+["L4","HCl + NaOH → NaCl + H₂O is best classified as:",["Combustion","Decomposition","Neutralization / double replacement","Single replacement"],2,"Acid + base → salt + water; the ions swap partners (double replacement)."],
+["L4","A patient with low O₂ saturation has reduced ATP production. Why?",["O₂ is the terminal electron acceptor in aerobic redox reactions","O₂ is the fuel that gets oxidized","O₂ is the electron donor","O₂ is the main blood buffer"],0,"O₂ accepts electrons and forms water. Without it, aerobic redox reactions and ATP formation are limited."],
+["L4","In NADH → NAD⁺ + H⁺ + 2e⁻, NADH is:",["Reduced (gains electrons)","Oxidized (loses electrons)","Neutralized","Unchanged"],1,"Oxidation Is Loss, Reduction Is Gain. NADH loses electrons, so it is oxidized."],
+["L4","Blood pH falls from 7.40 to 7.20. What happens to [H⁺]?",["Decreases","Stays the same","Increases","Becomes zero"],2,"pH = −log[H₃O⁺], so lower pH means higher [H⁺] (more acidic)."],
+["L4","When acid rises in blood, which component of the bicarbonate buffer binds the extra H⁺?",["HCO₃⁻","Na⁺","O₂","Cl⁻"],0,"HCO₃⁻ + H⁺ ⇌ H₂CO₃ ⇌ CO₂ + H₂O. Lungs regulate CO₂; kidneys regulate H⁺ and HCO₃⁻."],
+["L5","What is the IUPAC name of CH₃–CH=CH–CH₃?",["Butane","But-1-ene","But-2-ene","But-2-yne"],2,"Four carbons = but-; the C=C starts at carbon 2 → but-2-ene. -yne would mean a triple bond."],
+["L5","A lab identifies CH₃–CO–CH₂–CH₃. What is it?",["Butanal","Butan-2-one","Butanoic acid","Butan-1-ol"],1,"C=O between two carbons is a ketone (-one) at carbon 2. An aldehyde has a terminal –CHO."],
+["L5","Which functional group is present in CH₃–COO–CH₂CH₃?",["Carboxylic acid","Ether","Ester","Ketone"],2,"–COO– linking two carbon groups is an ester (R–COOR′). An acid has –COOH."],
+["L5","A structure contains C₆H₅–OH. Which class is it?",["Alcohol","Phenol","Ether","Aldehyde"],1,"–OH directly on a benzene ring is a phenol. An alcohol has –OH on a nonaromatic carbon."],
+["L5","Why is ethanol far more water-soluble than hexane?",["It has more C–H bonds","Its –OH hydrogen-bonds with water","It has a C=C bond","It is ionic"],1,"Ethanol’s polar –OH forms hydrogen bonds with water; hexane is nonpolar."],
+["L5","Aspirin (acetylsalicylic acid) contains which pair of functional groups?",["Phenol + amide","Carboxylic acid + ester","Amine + ketone","Ether + aldehyde"],1,"Aspirin has –COOH (ionizes with pH) and an ester (can be hydrolyzed). Phenol + amide is paracetamol."],
+["L5","Paracetamol (acetaminophen) contains which pair of groups?",["Carboxylic acid + ester","Phenol + amide","Alcohol + amine","Ketone + ether"],1,"A phenolic –OH on an aromatic ring plus an amide C(=O)–N, not an ordinary amine."],
+["L5","In the liver, alcohol dehydrogenase oxidizes ethanol to:",["Ethanal (an aldehyde)","An ester","Propanone","Methanol"],0,"Ethanol → ethanal → ethanoate (via aldehyde dehydrogenase). Acetaldehyde buildup contributes to alcohol’s adverse effects."],
+["L5","A drug contains an amine group. In acidic stomach fluid it is most likely:",["Neutral and lipid-only","Protonated R–NH₃⁺, charged and more water-soluble","Converted to an ester","Converted to an alcohol"],1,"Amines are bases that accept H⁺; the protonated form is charged and often water-soluble."],
+["L5","β-Hydroxybutyrate is called a ketone body. Chemically, which statement is true?",["It has a ketone C=O group","It lacks a ketone group","It is an aldehyde","It is an ester"],1,"Acetoacetate and acetone contain a ketone, but β-hydroxybutyrate does not, so not all ‘ketone bodies’ are chemically ketones."]
+];
+const A=document.getElementById('app'),L='ABCD';
+let S={i:0,a:{},f:[],q:null,r:null,v:0,ph:'m'};
+try{const t=JSON.parse(localStorage.getItem('chemq'));if(t&&t.a)S=t}catch(e){}
+const sv=()=>{try{localStorage.setItem('chemq',JSON.stringify(S))}catch(e){}};
+const cur=()=>S.ph=='m'?S.i:S.q[0];
+const sel=()=>S.ph=='m'?S.a[S.i]:S.r;
+function pick(j){if(sel()!=null)return;if(S.ph=='m')S.a[S.i]=j;else S.r=j;sv();R()}
+function flag(k){const n=S.f.indexOf(k);n<0?S.f.push(k):S.f.splice(n,1);sv();R()}
+function next(){
+ if(S.ph=='m'){S.i++;if(S.i>=D.length){const w=D.map((d,k)=>k).filter(k=>S.a[k]!=D[k][3]);if(w.length){S.ph='r';S.q=w}else S.ph='d'}}
+ else{S.r==D[S.q[0]][3]?S.q.shift():S.q.push(S.q.shift());S.r=null;if(!S.q.length)S.ph='d'}
+ sv();R();scrollTo(0,0)}
+function reset(){S={i:0,a:{},f:[],q:null,r:null,v:0,ph:'m'};sv();R()}
+function show(v){S.v=v;sv();R()}
+const esc=s=>s;
+function review(k){const d=D[k];return `<div class="card" style="margin-bottom:12px"><span class="chip">${d[0]}</span><h2>${d[1]}</h2><div class="ex ok"><b>Answer: ${L[d[3]]}. ${d[2][d[3]]}</b><br>${d[4]}</div></div>`}
+function R(){
+ const n=S.f.length,fb=document.getElementById('fb');
+ fb.textContent='⚑ Flagged ('+n+')';fb.onclick=()=>show(S.v?0:1);
+ const done=S.ph=='m'?S.i:D.length;
+ document.getElementById('pb').style.width=(100*done/D.length)+'%';
+ if(S.v){A.innerHTML=`<div class="row" style="margin:0 0 12px"><h2 style="margin:0">Flagged for review</h2><button class="btn" onclick="show(0)">Back</button></div>`+(n?S.f.slice().sort((a,b)=>a-b).map(review).join(''):'<div class="card">Nothing flagged yet. Tap ⚑ Flag on any question.</div>');return}
+ if(S.ph=='d'){const c=D.filter((d,k)=>S.a[k]==d[3]).length;
+  A.innerHTML=`<div class="card"><p class="sm">First-pass score</p><p class="big" style="color:var(--gc)">${c} / ${D.length}</p><p>${D.length-c?`You missed ${D.length-c} on the first pass and re-did them until correct.`:'Perfect first pass.'}</p><div class="row"><button class="btn" onclick="show(1)">Review flagged (${n})</button><button class="fg" onclick="if(confirm('Start over?'))reset()">Restart quiz</button></div></div>`;return}
+ const k=cur(),d=D[k],s=sel(),r=S.ph=='r';
+ let h=`<div class="card"><div class="meta"><span><span class="chip${r?' r':''}">${r?'Retry':d[0]}</span>${r?'Missed earlier · '+S.q.length+' left':'Question '+(S.i+1)+' of '+D.length}</span></div><h2>${d[1]}</h2>`;
+ d[2].forEach((o,j)=>{let c='';if(s!=null)c=j==d[3]?' ok':j==s?' no':'';h+=`<button class="o${c}" ${s!=null?'disabled':''} onclick="pick(${j})"><b>${L[j]}</b><span>${o}${s!=null&&j==d[3]?' ✓':''}${s!=null&&j==s&&j!=d[3]?' ✗':''}</span></button>`});
+ if(s!=null){const ok=s==d[3];h+=`<div class="ex ${ok?'ok':'no'}"><b>${ok?'Correct ✓':'Not quite ✗ — you chose '+L[s]+'. Correct answer: '+L[d[3]]+'.'}</b><br>${d[4]}</div>`}
+ h+=`<div class="row"><button class="fg${S.f.includes(k)?' on':''}" onclick="flag(${k})">⚑ ${S.f.includes(k)?'Flagged':'Flag'}</button>${s!=null?`<button class="btn" onclick="next()">${S.ph=='m'&&S.i==D.length-1?'Finish':'Next'}</button>`:''}</div></div>`;
+ A.innerHTML=h}
+R();
+</script></body></html>
